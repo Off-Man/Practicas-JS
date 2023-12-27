@@ -91,8 +91,8 @@ if(!texto) return console.warn("No ingresaste la palabra a evaluar")
 let i = 0,
 contador = 0;
 
-while (i!== -1) {
-    i =cadena.indexOf(texto, i);
+while (i !== -1) {
+    i = cadena.indexOf(texto, i);
     if (i !==-1){
         i++;
         contador++;
@@ -842,6 +842,19 @@ const repetirCadena = (texto="", veces = undefined) => {
     palabraAlrevez("Hola Mundo");
 
     // 6) Programa una función para contar el número de veces que se repite una palabra en un texto largo, pe. miFuncion("hola mundo adios mundo", "mundo") devolverá 2.
+    const contarPalabra = (cadena = "", palabra = "") =>{
+    if(!cadena) return console.warn("No ingresaste una cadena");
+    if(typeof cadena !== "string") return console.error("El valor ingresado no es una cadena de texto");
+    if(!palabra) return console.warn("No ingresaste una palabra");
+    if(typeof palabra !== "string") return console.error("El valor ingresado no es una palabra");
+    
+    const palabras = cadena.toLowerCase().split(' ');
+    const contador = palabras.filter(pal => pal === palabra.toLowerCase()).length;
+
+    return console.info(`La palabra ${palabra} se repite ${contador} veces`);
+};
+
+contarPalabra("hola mundo adios mundo", "mundo");
 
     // 7) Programa una función que valide si una palabra o frase dada, es un palíndromo (que se lee igual en un sentido que en otro), pe. mifuncion("Salas") devolverá true.
 
