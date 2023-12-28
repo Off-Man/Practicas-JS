@@ -871,3 +871,11 @@ palindromos(2);
 palindromos("agua");
 
     // 8) Programa una función que elimine cierto patrón de caracteres de un texto dado, pe. miFuncion("xyz1, xyz2, xyz3, xyz4 y xyz5", "xyz") devolverá  "1, 2, 3, 4 y 5.
+    const eliminarPatron = (cadena = "", patron = "") =>
+    (!cadena)
+    ?console.warn("No ingresaste una cadena de texto")
+    :(!patron)
+        ?console.warn("No ingresaste un patrón a eliminar")
+        :console.info(cadena.replace(new RegExp(patron, "gi"), ""));
+
+eliminarPatron("xyz1, xyz2, xyz3, xyz4 y xyz5", "xyz");
