@@ -857,5 +857,17 @@ const repetirCadena = (texto="", veces = undefined) => {
 contarPalabra("hola mundo adios mundo", "mundo");
 
     // 7) Programa una función que valide si una palabra o frase dada, es un palíndromo (que se lee igual en un sentido que en otro), pe. mifuncion("Salas") devolverá true.
+    const palindromos = (palabra = "") => {
+    if(!palabra) return console.warn("No ingresaste palabra a analizar");
+    if(typeof palabra !== "string") return console.error("El valor ingresado no es una cadena de texto");
+    palabra = palabra.toLocaleLowerCase();
+    let palabra2 = palabra.split("").reverse().join("");
+    return(palabra === palabra2)
+    ?console.info("La palabra " + palabra + " es palindromo")
+    :console.log("No es palindromo")
+}
+palindromos("Salas");
+palindromos(2);
+palindromos("agua");
 
     // 8) Programa una función que elimine cierto patrón de caracteres de un texto dado, pe. miFuncion("xyz1, xyz2, xyz3, xyz4 y xyz5", "xyz") devolverá  "1, 2, 3, 4 y 5.
