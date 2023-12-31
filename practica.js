@@ -962,5 +962,28 @@ esPrimo(7);
 esPrimo(8);
 
 //13) Programa una función que determine si un número es par o impar, pe. miFuncion(29) devolverá Impar.
+const paresImpares = (numero = 0) => {
+    if(!numero) return console.warn("No ingresaste número");
+    if(typeof numero !== "number" || isNaN(numero)) return console.warn("Solo se aceptan caracteres numericos");
+
+    return (numero % 2 === 0) ? true : false;
+}
 
 //14) Programa una función para convertir grados Celsius a Fahrenheit y viceversa, pe. miFuncion(0,"C") devolverá 32°F.
+
+const CelsiusFahrenheit = (grados = undefined, medida = undefined) => {
+    if(grados === undefined) return console.warn("No ingresaste grados a convertir");
+    if(typeof grados !== "number") return console.error("El valor ingresado NO es un número");
+    if(medida === undefined) return console.warn("No indicaste la unidad a convertir");
+    if(typeof medida !== "string") return console.error("El valor ingresado NO es una unidad de medida valida");
+    
+    if(!["C", "F"].includes(medida)) return console.error("Unidad no reconocida");
+
+    if (medida === "C") {
+        return console.info(`${grados} Celsius = ${Math.round((grados * 9/5) + 32)} Fahrenheit`);
+    }
+    else if (medida === "F") {
+        return console.info(`${grados} Fahrenheit = ${Math.round((grados - 32) * 5/9)} Celsius`);
+    }
+}
+
