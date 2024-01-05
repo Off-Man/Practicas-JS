@@ -987,3 +987,100 @@ const CelsiusFahrenheit = (grados = undefined, medida = undefined) => {
     }
 }
 
+//15) Programa una función para convertir números de base binaria a decimal y viceversa, pe. miFuncion(100,2) devolverá 4 base 10.
+
+const binDecimal = (numero = undefined, base = undefined) => {
+    if(numero === undefined) return console.warn("No ingresaste número");
+    if(base === undefined) return console.warn("No ingresaste una base");
+    if(typeof numero !== "number") return console.error("El valor ingresado NO es un número");
+    if(typeof base !== "number") return console.error("El valor ingresado NO es un número");
+
+
+if(base === 2) {
+    console.info(`${numero} base ${base} = ${parseInt(numero, base)} base 10`);
+}
+    else if(base === 10){
+        return console.info(`${numero} base ${base} = ${(numero.toString(2))} base 2`);
+    }
+    else {
+        return console.error("El tipo de base a convertir NO es válido");
+    }
+};
+binDecimal(16,2);
+binDecimal(4,10);
+
+//16) Programa una función que devuelva el monto final después de aplicar un descuento a una cantidad dada, pe. miFuncion(1000, 20) devolverá 800.
+
+const calcularDescuento = (monto = undefined, descuento = undefined) => {
+    if(monto === undefined) return console.warn("No ingresaste un monto");
+    if(descuento === undefined) return console.warn("No ingresaste un descuento");
+    if(typeof monto !== "number") return console.error("El valor ingresado NO es un número");
+    if(typeof descuento !== "number") return console.error("El valor ingresado NO es un número");
+
+    calculo = monto - ((monto * descuento) / 100);
+
+    return console.info(`$${monto} con ${descuento}% de descuento es = $${calculo}`)
+}
+calcularDescuento(1000,20);
+
+//17) Programa una función que dada una fecha válida determine cuantos años han pasado hasta el día de hoy, pe. miFuncion(new Date(1984,4,23)) devolverá 35 años (en 2020).
+
+let fechaNacido = new Date('2016/03/19');
+let actual = new Date()
+
+let calculaAnios = actual.getTime() - fechaNacido.getTime()
+console.log(Math.round(calculaAnios/ (1000*60*60*24*360)));
+
+//18) Programa una función que dada una cadena de texto cuente el número de vocales y consonantes, pe. miFuncion("Hola Mundo") devuelva Vocales: 4, Consonantes: 5.
+
+const cuentaVocCons = (cadena = "") => {
+    if(!cadena) return console.warn("Ingrese una cadena");
+    if (typeof cadena !== "string" || /\d/.test(cadena)) { // /\d/.test(cadena) se utiliza para comprobar si la cadena cadena contiene al menos un dígito (0 al 9). Comprobando entre true o false.
+        console.error("El valor ingresado NO es una cadena de texto válida o contiene números");
+        return;
+}
+
+const vocals = ["a", "e", "i", "o", "u"];
+
+let vocales = 0;
+let consonantes = 0;
+
+cadena = cadena.toLowerCase();
+
+for (let letra of cadena) {
+    if (vocals.includes(letra)) vocales++;
+    else 
+        consonantes++;
+    }
+    return `El texto ${cadena} tiene ${consonantes} consonantes y ${vocales} vocales`;
+
+};
+cuentaVocCons("Hola como estas?");
+cuentaVocCons();
+cuentaVocCons(123);
+
+//19) Programa una función que valide que un texto sea un nombre válido, pe. miFuncion("Jonathan MirCha") devolverá verdadero.
+//-----------------------------------------------
+const validarNombre = (nombre = "") => {
+    if(!nombre) return console.warn("Ingrese un nombre");
+    if (typeof nombre !== "string") return console.error("El valor ingresado NO es una cadena de texto válida");
+
+    const expresionRegular = /^[A-Za-z ]+$/;
+    
+    return expresionRegular.test(nombre);
+}
+validarNombre("Juan David Cardenas"); // true
+validarNombre("Juan_David Cardenas"); // false
+
+//20) Programa una función que valide que un texto sea un email válido, pe. miFuncion("jonmircha@gmail.com") devolverá verdadero.
+//-------------------------------------------
+const validarEmail = (email = "") => {
+    if(!email) return console.warn("Ingrese un email");
+    if (typeof email !== "string") return console.error("El valor ingresado NO es una cadena de texto válida");
+
+    const regExpParaEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+//Se pueden usar otras expresiones, mas complejas, pero para el caso es suficiente.
+    return regExpParaEmail.test(email);
+}
+validarEmail("jonmircha@gmail.com"); // true
+validarEmail("jonmircha.com"); // false
