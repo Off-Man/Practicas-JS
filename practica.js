@@ -1084,3 +1084,152 @@ const validarEmail = (email = "") => {
 }
 validarEmail("jonmircha@gmail.com"); // true
 validarEmail("jonmircha.com"); // false
+
+//------------------ Inicio Closures -------------------------
+const miContador = (function() {
+    
+    let _contador = 0;
+    
+    function incrementar(){
+
+        return _contador++;
+    }
+
+    function decrementar() {
+        return _contador--;
+    }
+
+    function valor() {
+        return _contador;
+    }
+
+    return {
+        incrementar,
+        decrementar,
+        valor
+    }
+})();
+
+miContador.valor();
+miContador.incrementar();
+miContador.valor();
+miContador.incrementar()
+miContador.decrementar();
+miContador.valor();
+
+//------------------ Fin Closures -------------------------
+
+//21) Programa una función que dado un array numérico devuelve otro array con los números elevados al cuadrado, pe. mi_funcion([1, 4, 5]) devolverá [1, 16, 25].
+
+const arrayCuadrado = (arrayEntrada = undefined) => {
+    if(arrayEntrada === undefined) return console.warn("No ingresaste ninguna arreglo");
+    if(!(arrayEntrada instanceof Array)) return console.error("El valor ingresado no es un arreglo");
+    if(arrayEntrada.length === 0) return console.error("El arreglo esta vacío");
+
+     // Verificar que todos los elementos del arrayEntrada sean de tipo numérico.
+    if(!arrayEntrada.every(elemento => typeof elemento === "number")) {
+        return console.error("El array debe contener solo valores numéricos");
+    }
+
+    return arrayEntrada.map( elemento => elemento * elemento );
+
+}
+arrayCuadrado([9, 4, 5]);
+
+//22) Programa una función que dado un array devuelva el número mas alto y el más bajo de dicho array, pe. miFuncion([1, 4, 5, 99, -60]) devolverá [99, -60].
+
+//1) funcion que reciba array = undefined
+//2) luego necesito dos contadores, que cambien si encuentra un numero mas alto o mas bajo.
+//3) ciclo for para recorrer el array, y que vaya modificando los dos contadores siempre y cuando cumpla condicion
+//de mayor o menor.
+//4) return del array armado.
+
+const arrayMinimoMaximo = (array = undefined) => {
+    if(array === undefined) return console.warn("No ingresaste ninguna arreglo");
+    if(!(array instanceof Array)) return console.error("El valor ingresado no es un arreglo");
+    if(array.length === 0) return console.error("El arreglo esta vacío");
+
+    let max = array[0]; // inicia en la posicion 1 del array (index 0)
+    let min = array[0]; // idem anterior.
+
+    for (let i = 1; i < array.length; i++) { //comienza a iterar desde posicion 2 del array (index 1).
+        if (typeof array[i] !== "number") {
+            console.error(`El valor "${array[i]}" ingresado, NO es un número`);
+            return;
+        }
+
+        if (array[i] > max) {
+            max = array[i];
+        }
+
+        if (array[i] < min) {
+            min = array[i];
+        }
+    }
+
+    console.info(`Arreglo original: ${array}\n Valor mayor: ${max},\n Valor Menor: ${min}`);
+}
+arrayMinimoMaximo([3,67,-89,45,23,12,45,90,-23,-12,45,90,12,45,90,1]);
+
+// OTRA FORMA DE HACERLO, CON Spread Operators: 
+
+/*
+
+for (let num of array) {
+    if(typeof num !== "number") return console.error(`El valor "${num}" ingresado, NO es un número`);
+}
+
+console.info(`Arreglo original: ${array}\n Valor mayor: ${Math.max(...array)},\n Valor Menor: ${Math.min(...array)}`);
+
+*/
+
+//23) Programa una función que dado un array de números devuelva un objeto con 2 arreglos en el primero almacena los números pares y en el segundo los impares, pe. miFuncion([1,2,3,4,5,6,7,8,9,0]) devolverá {pares: [2,4,6,8,0], impares: [1,3,5,7,9]}.
+
+const separaParesImpares = (array = undefined) => {
+
+    if(array === undefined) return console.warn("No ingresaste ninguna arreglo");
+    if(!(array instanceof Array)) return console.error("El valor ingresado no es un arreglo");
+    if(array.length === 0) return console.error("El arreglo esta vacío");
+    
+    for (let num of array) {
+        if(typeof num !== "number") return console.error(`El valor "${num}" ingresado, NO es un número`);
+    }
+    return console.info({
+        pares: array.filter(num => num % 2 == 0),
+        impares: array.filter(num => num % 2 != 0)
+    });
+}
+separaParesImpares([1,2,3,4,5,6,7,8,9]);
+
+//24) Programa una función que dado un arreglo de números devuelva un objeto con dos arreglos, el primero tendrá los numeros ordenados en forma ascendente y el segundo de forma descendente, pe. miFuncion([7, 5,7,8,6]) devolverá { asc: [5,6,7,7,8], desc: [8,7,7,6,5] }.
+
+const arrAscDesc = (array = undefined) => {
+    if(array === undefined) return console.warn("No ingresaste ninguna arreglo");
+    if(!(array instanceof Array)) return console.error("El valor ingresado no es un arreglo");
+    if(array.length === 0) return console.error("El arreglo esta vacío");
+    for (let num of array) {
+        if(typeof num !== "number") return console.error(`El valor "${num}" ingresado, NO es un número`);
+        }
+    
+        //En el método sort(), se pasa una función de comparación que toma dos elementos a y b. La función de comparación devuelve un número negativo si a debe estar antes de b, un número positivo si a debe estar después de b, y cero si son iguales. Al restar b de a (a - b), se asegura que los elementos se comparen y ordenen como números, resultando en un orden ascendente.
+        //Para obtener un orden descendente, basta con invertir el signo de la resta.
+
+        /*
+        Orden ascendente (a - b):
+
+        * Cuando a es menor que b, a - b produce un número negativo, por lo que los números más pequeños preceden a los números más grandes en el resultado ordenado.
+        
+        Orden descendente (b - a):
+
+        * Cuando b es mayor que a, b - a produce un número positivo, por lo que los números más grandes preceden a los números más pequeños en el resultado ordenado.
+        */
+        const ascending = [...array].sort((a, b) => a - b);
+        const descending = [...array].sort((a, b) => b - a);
+    
+        return console.info({
+            array,
+            ascendente: ascending,
+            descendente: descending
+        });
+}
+arrAscDesc([7, 5,7,8,6,1,15,23,27,2,3]);
