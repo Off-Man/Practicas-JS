@@ -1233,3 +1233,43 @@ const arrAscDesc = (array = undefined) => {
         });
 }
 arrAscDesc([7, 5,7,8,6,1,15,23,27,2,3]);
+
+//25) Programa una función que dado un arreglo de elementos, elimine los duplicados, pe. miFuncion(["x", 10, "x", 2, "10", 10, true, true]) devolverá ["x", 10, 2, "10", true].
+
+const eliminarDuplicados = (array = undefined) => {
+    if (array === undefined) return console.warn("No ingresaste un arreglo");
+    if (!(array instanceof Array)) return console.error("El valor que ingresaste no es un arreglo");
+    if(array.length === 0) return console.error("El arreglo esta vacío");
+    if(array.length === 1) return console.warn("El arreglo tiene un solo elemento");
+
+
+    //Usando Set(), se creara una instancia de valores únicos,
+    //implícitamente al usar esta instancia borrara los duplicados.
+    return console.info({ 
+        array_original: array,
+        array_limpio: [...new Set(array)]});
+
+}
+eliminarDuplicados();
+eliminarDuplicados(["x", 10, "x", 2, "10", 10, true, true]);
+
+//26) Programa una función que dado un arreglo de números obtenga el promedio, pe. promedio([9,8,7,6,5,4,3,2,1,0]) devolverá 4.5.
+
+const promArray = (array = undefined) => {
+
+    if(array === undefined) return console.warn("No ingresaste arreglo");
+    if(!(array instanceof Array)) return console.error("El valor ingresado no es un arreglo");
+    if(array.length === 0) return console.error("El arreglo esta vacío");
+    
+    for (let numero of array) {
+        if(typeof numero !== "number") return console.error(`El valor "${numero}" ingresado, NO es un número`);
+    }
+
+    return console.info({
+        promedio: array.reduce((total, numero) => total + numero, 0) / array.length
+        }
+    );
+}
+promArray();
+promArray([]);
+promArray([1,2,3,4,5]); // 3
