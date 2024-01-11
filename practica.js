@@ -1298,15 +1298,149 @@ class Pelicula {
         this.calificacion = calificacion;
 
         this.validarIMDB(id);
+        this.validarTitulo(titulo);
+        this.validarDirector(director);
+        this.validarEstreno(estreno);
+        this.validarPais(pais);
+        this.validarGeneros(generos);
+        this.validarCalificacion(calificacion)
     }
 }
+ //ATRIBUTO ESTATICO
+    static get listaGeneros() {
+        return ["Action", "Adult", "Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary" ,"Drama", "Family", "Fantasy", "Film Noir", "Game-Show", "History", "Horror", "Musical", "Music", "Mystery", "News", "Reality-TV", "Romance", "Sci-Fi", "Short", "Sport", "Talk-Show", "Thriller", "War", "Western"];
+    }
+//METODO ESTATICO
+
+    static generosAceptados(){
+        return console.info(`Los generos aceptados son ${Pelicula.listaGeneros.join(", ")}`)
+    }
 
 //METODOS
 
-    validarIMDB(id);{
+        validarCadena(propiedad, valor) {
+        if(!valor) return console.warn(`${propiedad} "${valor}" esta vacío`);
+        if(typeof valor !== "string") return console.error(`${propiedad} "${valor}" ingresado, NO es una cadena de texto`);
+
+        return true;
+    }
+
+    validarLongitudCadena(propiedad, valor, longitud) {
+            if(valor.length > longitud) return console.error(`${propiedad} "${valor}" excede el número de caracteres permitidos (${longitud}).`);
+
+            return true;
+            }
+
+    validarArreglo(propiedad, valor) {
+        if(!valor) return console.warn(`${propiedad} "${valor}" esta vacío.`);
+
+        if(!(valor instanceof Array)) return console.error(`${propiedad} "${valor}" ingresado, NO es un arreglo`);
+
+        if(valor.length === 0) return console.error(`${propiedad} "${valor}" no tiene datos`);
+
+        for(let cadena of valor) {
+            if(typeof cadena !== 'string') return console.error(`El valor "${cadena}"ingresado, NO es una cadena de texto`);
+        }
+        return true;
+    }
+
+    validarIMDB(id) {
         if(this.validarCadena("IMDB id", id)) {
             if(!(/^([a-z]){2}([0-9]){7}$/.test(id))) {
                 return console.error(`IMDB id "${id}" no es válido, debe tener 9 caracteres, los 2 primeros letras minúsculas, y los 7 restantes números.`);
             }
         }
 }
+
+    validarTitulo(titulo) {
+    if(this.validarCadena("Titulo", titulo)) {
+        this.validarLongitudCadena("Titulo", titulo, 100);
+    }
+}
+
+validarDirector(director) {
+    if(this.validarCadena("Director", director)) {
+        this.validarLongitudCadena("Director", director, 50);
+    }
+}
+
+    validarNumero(propiedad, valor) {
+    if(!valor) return console.warn(`${propiedad} "${valor}" esta vacío`);
+        if(typeof valor !== "number") return console.error(`${propiedad} "${valor}" ingresado, NO es un número`);
+
+    return true;
+}
+
+    validarEstreno(estreno) {
+    if(this.validarNumero("Año de estreno", estreno)) {
+        if(!(/^([0-9]){4}$/.test(estreno))) {
+            return console.error(`Año de estreno "${estreno}" no es válido, debe ser un número de 4 dígitos`);
+        }
+    }
+}
+
+    validarPais(pais) {
+        this.validarArreglo("Pais", pais);
+    }
+
+    validarGeneros(generos){
+        if(this.validarArreglo("Generos", generos)){
+            for(let genero of generos){
+                console.log(genero, Pelicula.listaGeneros.includes(genero)); //SI ESTA DENTRO DE LA LISTA DA TRUE, SINO FALSE.
+                if(!Pelicula.listaGeneros.includes(genero)){ //aca elije respuesta según TRUE o FALSE.
+                    console.error(`Genero(s) incorrecto(s) "${generos.join(", ")}"`);
+                    Pelicula.generosAceptados();
+                }
+            }
+
+        }
+    }
+
+    validarCalificacion(calificacion) {
+        if(this.validarNumero("Calificacion", calificacion))
+            return (calificacion < 0 || calificacion > 10)
+            ? console.error("La calificación tiene que estar entre 0 y 10")
+            : this.calificacion = calificacion.toFixed(1);
+    }
+
+    fichaTecnica() {
+        console.info(`Ficha Técnica\nTítulo:"${this.titulo}"\nDirector:"${this.director}"\nAño:"${this.estreno}"\nPais:"${this.pais.join("-")}"\nGeneros:"${this.generos.join(",")}"\nClasificación:"${this.calificacion}"\nIMDB id:"${this.id}"`);
+    }
+
+
+
+/* Pelicula.generosAceptados(); */
+
+const misPelis = [
+    {
+        id: 'tt1237899',
+        titulo: 'Pelicula 1',
+        director: 'Director 1',
+        estreno: 2021,
+        pais: ['Argentina'],
+        generos: ['Suspense', 'Accion'],
+        calificacion: 9.5
+    },
+    {
+        id: 'tt1237779',
+        titulo: 'Pelicula 2',
+        director: 'Director 2',
+        estreno: 2020,
+        pais: ['USA'],
+        generos: ['Accion', 'War'],
+        calificacion: 7.5
+    },
+    {
+        id: 'tt1237879',
+        titulo: 'Pelicula 3',
+        director: 'Director 3',
+        estreno: 2017,
+        pais: ['España'],
+        generos: ['Drama', 'Accion'],
+        calificacion: 8.5
+    }
+];
+
+peli.fichaTecnica();
+
+misPelis.forEach(elem => new Pelicula(elem).fichaTecnica());
