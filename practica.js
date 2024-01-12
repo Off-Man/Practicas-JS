@@ -1302,11 +1302,10 @@ class Pelicula {
         this.validarDirector(director);
         this.validarEstreno(estreno);
         this.validarPais(pais);
-        this.validarGeneros(generos);
+        this.validarGeneros(genero);
         this.validarCalificacion(calificacion)
     }
-}
- //ATRIBUTO ESTATICO
+     //ATRIBUTO ESTATICO
     static get listaGeneros() {
         return ["Action", "Adult", "Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary" ,"Drama", "Family", "Fantasy", "Film Noir", "Game-Show", "History", "Horror", "Musical", "Music", "Mystery", "News", "Reality-TV", "Romance", "Sci-Fi", "Short", "Sport", "Talk-Show", "Thriller", "War", "Western"];
     }
@@ -1315,10 +1314,9 @@ class Pelicula {
     static generosAceptados(){
         return console.info(`Los generos aceptados son ${Pelicula.listaGeneros.join(", ")}`)
     }
+    //METODOS
 
-//METODOS
-
-        validarCadena(propiedad, valor) {
+    validarCadena(propiedad, valor) {
         if(!valor) return console.warn(`${propiedad} "${valor}" esta vacío`);
         if(typeof valor !== "string") return console.error(`${propiedad} "${valor}" ingresado, NO es una cadena de texto`);
 
@@ -1407,9 +1405,9 @@ validarDirector(director) {
         console.info(`Ficha Técnica\nTítulo:"${this.titulo}"\nDirector:"${this.director}"\nAño:"${this.estreno}"\nPais:"${this.pais.join("-")}"\nGeneros:"${this.generos.join(",")}"\nClasificación:"${this.calificacion}"\nIMDB id:"${this.id}"`);
     }
 
+}
 
-
-/* Pelicula.generosAceptados(); */
+//Pelicula.generosAceptados();
 
 const misPelis = [
     {
@@ -1418,7 +1416,7 @@ const misPelis = [
         director: 'Director 1',
         estreno: 2021,
         pais: ['Argentina'],
-        generos: ['Suspense', 'Accion'],
+        genero: ['Suspense', 'Accion'],
         calificacion: 9.5
     },
     {
@@ -1427,7 +1425,7 @@ const misPelis = [
         director: 'Director 2',
         estreno: 2020,
         pais: ['USA'],
-        generos: ['Accion', 'War'],
+        genero: ['Accion', 'War'],
         calificacion: 7.5
     },
     {
@@ -1436,11 +1434,21 @@ const misPelis = [
         director: 'Director 3',
         estreno: 2017,
         pais: ['España'],
-        generos: ['Drama', 'Accion'],
+        genero: ['Drama', 'Accion'],
         calificacion: 8.5
     }
 ];
 
-peli.fichaTecnica();
+const peli = new Pelicula(
+{   id: "tt1234567",
+    titulo: "Pelicula de prueba",
+    director: "Nombre del Director",
+    estreno: 2021,
+    pais: ["Argentina"],
+    genero: ["Comedy"],
+    calificacion: 8.5
+});
 
-misPelis.forEach(elem => new Pelicula(elem).fichaTecnica());
+//peli.fichaTecnica();
+
+//misPelis.forEach(peli => new Pelicula(elem).fichaTecnica());
