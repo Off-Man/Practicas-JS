@@ -719,7 +719,7 @@ for (let num of array) {
 
 //EJERCICIO POKEMON TodoCode
 
-//Array para nombres
+/* //Array para nombres
 let nombresPkm = ["Charmander", "Pikachu", "Bulbasur", "Squirtle"];
 
 //Matriz para sus habilidades
@@ -765,7 +765,7 @@ evaluarAptitud(nombresPkm,habilidades);
 
 
 // 1) Programa una función que cuente el número de caracteres de una cadena de texto,
-//Ejemplo: miFuncion("Hola Mundo") devolverá 10.*/
+//Ejemplo: miFuncion("Hola Mundo") devolverá 10.
 
 const contarStr = (cadena = "") => 
 (!cadena)
@@ -776,7 +776,7 @@ contarStr("");
 contarStr("Hola Mundo!");
 
 //2) Programa una función que te devuelva el texto recortado según el número de caracteres indicados,
-// ejemplo: miFuncion("Hola Mundo", 4) devolverá "Hola".*/
+// ejemplo: miFuncion("Hola Mundo", 4) devolverá "Hola".
 
 const cortarCadena = (cadena = "", longitud = undefined) =>
 (!cadena)
@@ -788,7 +788,7 @@ cortarCadena("Hola a todos", 4);
 /*
 3) Programa una función que dada una String te devuelva un Array de textos separados por cierto caracter.
 ejemplo: miFuncion('hola que tal', ' ') devolverá ['hola', 'que', 'tal'].
-*/
+
 const separar = (cadena = "", separador = undefined) =>
 (!cadena)
 ? console.warn("No ingresaste ninguna cadena")
@@ -798,7 +798,7 @@ separar("hola que tal", " ")
 
 /*4) Programa una función que repita un texto X veces, pe. miFuncion('Hola Mundo', 3)
 devolverá Hola Mundo Hola Mundo Hola Mundo. 
-*/
+
 const repetirCadena = (texto="", veces = undefined) => {
     if(!texto) return console.warn("No ingresaste nada de texto");
     if(veces === undefined) return console.warn("No ingresaste el número de veces a repetir el texto");
@@ -881,7 +881,7 @@ eliminarPatron("xyz1, xyz2, xyz3, xyz4 y xyz5", "xyz");
         }
         return -1;
     }
-*/
+
 //9) Programa una función que obtenga un numero aleatorio entre 501 y 600.
 
 const aleat = () =>
@@ -1172,7 +1172,7 @@ for (let num of array) {
 
 console.info(`Arreglo original: ${array}\n Valor mayor: ${Math.max(...array)},\n Valor Menor: ${Math.min(...array)}`);
 
-*/
+
 
 //23) Programa una función que dado un array de números devuelva un objeto con 2 arreglos en el primero almacena los números pares y en el segundo los impares, pe. miFuncion([1,2,3,4,5,6,7,8,9,0]) devolverá {pares: [2,4,6,8,0], impares: [1,3,5,7,9]}.
 
@@ -1213,7 +1213,7 @@ const arrAscDesc = (array = undefined) => {
         Orden descendente (b - a):
 
         * Cuando b es mayor que a, b - a produce un número positivo, por lo que los números más grandes preceden a los números más pequeños en el resultado ordenado.
-        */
+        
         const ascending = [...array].sort((a, b) => a - b);
         const descending = [...array].sort((a, b) => b - a);
     
@@ -1263,7 +1263,7 @@ const promArray = (array = undefined) => {
 }
 promArray();
 promArray([]);
-promArray([1,2,3,4,5]); // 3
+promArray([1,2,3,4,5]); // 3 */
 
 //27) Programa una clase llamada Pelicula.
 // La clase recibirá un objeto al momento de instanciarse con los siguentes datos: id de la película en IMDB, titulo, director, año de estreno, país o países de origen, géneros y calificación en IMBD.
@@ -1381,19 +1381,18 @@ validarDirector(director) {
         this.validarArreglo("Pais", pais);
     }
 
-    validarGeneros(generos){
-        if(this.validarArreglo("Generos", generos)){
-            for(let genero of generos){
-                console.log(genero, Pelicula.listaGeneros.includes(genero)); //SI ESTA DENTRO DE LA LISTA DA TRUE, SINO FALSE.
-                if(!Pelicula.listaGeneros.includes(genero)){ //aca elije respuesta según TRUE o FALSE.
-                    console.error(`Genero(s) incorrecto(s) "${generos.join(", ")}"`);
+    validarGeneros(generos) {
+        if (this.validarArreglo("Generos", generos)) {
+            for (let genero of generos) {
+                console.log(genero, Pelicula.listaGeneros.includes(genero));
+                if (!Pelicula.listaGeneros.includes(genero)) {
+                    console.error(`Género incorrecto "${genero}"`);
                     Pelicula.generosAceptados();
                 }
             }
-
         }
     }
-
+    
     validarCalificacion(calificacion) {
         if(this.validarNumero("Calificacion", calificacion))
             return (calificacion < 0 || calificacion > 10)
@@ -1402,8 +1401,23 @@ validarDirector(director) {
     }
 
     fichaTecnica() {
-        console.info(`Ficha Técnica\nTítulo:"${this.titulo}"\nDirector:"${this.director}"\nAño:"${this.estreno}"\nPais:"${this.pais.join("-")}"\nGeneros:"${this.generos.join(",")}"\nClasificación:"${this.calificacion}"\nIMDB id:"${this.id}"`);
+        if (this.pais && this.pais.length > 0 && this.genero) {
+        console.info(`
+            Ficha Técnica
+            Título: "${this.titulo}"
+            Director: "${this.director}"
+            Año: "${this.estreno}"
+            País: "${this.pais.join("-")}"
+            Géneros: "${this.genero.join(",")}"
+            Clasificación: "${this.calificacion}"
+            IMDB id: "${this.id}"
+        `);
+        } else {
+        console.error("Error al mostrar la ficha técnica. Datos incompletos.");
+        }
     }
+    
+    
 
 }
 
@@ -1411,12 +1425,12 @@ validarDirector(director) {
 
 const misPelis = [
     {
-        id: 'tt1237899',
-        titulo: 'Pelicula 1',
-        director: 'Director 1',
+        id: "tt1237899",
+        titulo: "Pelicula 1",
+        director: "Director 1",
         estreno: 2021,
-        pais: ['Argentina'],
-        genero: ['Suspense', 'Accion'],
+        pais: ["Argentina"],
+        generos: ["Suspense", "Accion"],
         calificacion: 9.5
     },
     {
@@ -1425,7 +1439,7 @@ const misPelis = [
         director: 'Director 2',
         estreno: 2020,
         pais: ['USA'],
-        genero: ['Accion', 'War'],
+        generos: ['Accion', 'War'],
         calificacion: 7.5
     },
     {
@@ -1434,21 +1448,50 @@ const misPelis = [
         director: 'Director 3',
         estreno: 2017,
         pais: ['España'],
-        genero: ['Drama', 'Accion'],
+        generos: ['Drama', 'Accion'],
         calificacion: 8.5
     }
 ];
 
-const peli = new Pelicula(
-{   id: "tt1234567",
-    titulo: "Pelicula de prueba",
-    director: "Nombre del Director",
-    estreno: 2021,
-    pais: ["Argentina"],
-    genero: ["Comedy"],
-    calificacion: 8.5
+console.log("Contenido de misPelis:", misPelis);
+
+const misPeliculas = misPelis.map(peli => {
+    if (
+        peli.id &&
+        peli.titulo &&
+        peli.director &&
+        peli.estreno &&
+        peli.pais &&
+        peli.genero &&
+        peli.calificacion
+    ) {
+        return new Pelicula(
+            peli.id,
+            peli.titulo,
+            peli.director,
+            peli.estreno,
+            peli.pais,
+            peli.genero,
+            peli.calificacion
+        );
+    } else {
+        return null;
+    }
 });
 
-//peli.fichaTecnica();
+const peliculasValidas = misPeliculas.filter(peli => peli !== null);
 
-//misPelis.forEach(peli => new Pelicula(elem).fichaTecnica());
+peliculasValidas.forEach(peli => peli.fichaTecnica());
+
+
+const peli = new Pelicula(
+    "tt1234567",
+    "Pelicula de prueba",
+    "Nombre del Director",
+    2021,
+    ["Argentina"],
+    ["Comedy"],
+    8.5
+);
+
+peli.fichaTecnica();
