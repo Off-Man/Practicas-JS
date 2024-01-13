@@ -1554,22 +1554,23 @@ const FizzBuzz = () => {
 // # # # #
 //  # # # #
 // # # # #
-const boardSize = 8;
-const chessBoard = () => {
-    let board = "";
-    for (let i = 0; i < boardSize; i++) {
-        for (let j = 0; j < boardSize; j++) {
+const tamañoTablero = 8;
+const tableroAjedrez = () => {
+    let tablero = "";
+    for (let i = 0; i < tamañoTablero; i++) {
+        for (let j = 0; j < tamañoTablero; j++) {
             if ((i + j) % 2 === 0) {
-                board += " ";
+                tablero += " ";
             }
             else {
-                board += "#";
+                tablero += "#";
             }
         }
-        board += "\n";
+        tablero += "\n";
     }
-    return board;
+    return tablero;
 }
+console.log(tableroAjedrez());
 // Cuando tengas un programa que genere este patrón, define una vinculación
 // tamaño = 8 y cambia el programa para que funcione con cualquier tamaño,
 // dando como salida una cuadrícula con el alto y ancho dados.
