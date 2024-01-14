@@ -1574,3 +1574,78 @@ console.log(tableroAjedrez());
 // Cuando tengas un programa que genere este patrón, define una vinculación
 // tamaño = 8 y cambia el programa para que funcione con cualquier tamaño,
 // dando como salida una cuadrícula con el alto y ancho dados.
+
+// Define una función recursiva esPar que corresponda a esta descripción. La
+// función debe aceptar un solo parámetro (un número entero, positivo) y devolver
+// un Booleano.
+// Pruébalo con 50 y 75. Observa cómo se comporta con -1. Por qué? Puedes
+// pensar en una forma de arreglar esto?
+
+function esPar(numero) {
+    // Números negativos convertidos a su valor absoluto
+    numero = Math.abs(numero);
+    // Cuando el número es 0, es par
+    if (numero === 0) {
+        return true;
+    }
+    // Cuando el número es 1, es impar
+    else if (numero === 1) {
+        return false;
+    }
+    // Recursivo: resta 2 al número y llama a la función esPar nuevamente (recursión)
+    else {
+        return esPar(numero - 2);
+    }
+}
+
+// Conteo de frijoles
+// Puedes obtener el N-ésimo carácter, o letra, de un string escribiendo "string"[
+// N]. El valor devuelto será un string que contiene solo un carácter (por ejemplo,
+// "f"). El primer carácter tiene posición cero, lo que hace que el último se
+// encuentre en la posición string.length - 1. En otras palabras, un string de
+// dos caracteres tiene una longitud de 2, y sus carácteres tendrán las posiciones
+// 0 y 1.
+// Escribe una función contarFs que tome un string como su único argumento
+// y devuelva un número que indica cuántos caracteres “F” en mayúsculas haya
+// en el string.
+// Despues, escribe una función llamada contarCaracteres que se comporte
+// como contarFs, excepto que toma un segundo argumento que indica el carácter
+// que debe ser contado (en lugar de contar solo caracteres “F” en mayúscula).
+// Reescribe contarFs para que haga uso de esta nueva función.
+
+// Función contarFs que cuenta la cantidad de caracteres "F" en mayúsculas en un string.
+function contarFs(str) {
+    let count = 0;
+    for (let i = 0; i < str.length; i++) {
+    if (str[i] === "F") {
+        count++;
+    }
+    }
+    return count;
+}
+
+  // Función contarCaracteres que cuenta la cantidad de un carácter específico en un string.
+function contarCaracteres(str, char) {
+    let count = 0;
+    for (let i = 0; i < str.length; i++) {
+    if (str[i] === char) {
+        count++;
+    }
+    }
+    return count;
+}
+
+  // Reescribe contarFs utilizando contarCaracteres para contar la cantidad de "F" en mayúsculas.
+function contarFsModificado(str) {
+    return contarCaracteres(str, "F");
+}
+
+// Ejemplos de uso:
+// const ejemplo1 = contarFs("FFFabcFF");
+// console.log("Cantidad de 'F' en mayúsculas:", ejemplo1); // Output: 5
+
+// const ejemplo2 = contarCaracteres("abcdefg", "c");
+// console.log("Cantidad de 'c':", ejemplo2); // Output: 1
+
+// const ejemplo3 = contarFsModificado("FfFfF");
+// console.log("Cantidad de 'F' en mayúsculas (versión modificada):", ejemplo3); // Output: 3
