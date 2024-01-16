@@ -1649,3 +1649,69 @@ function contarFsModificado(str) {
 
 // const ejemplo3 = contarFsModificado("FfFfF");
 // console.log("Cantidad de 'F' en mayúsculas (versión modificada):", ejemplo3); // Output: 3
+
+// Escribe una función rango que tome dos argumentos, inicio y final, y
+// retorne un array que contenga todos los números desde inicio hasta (e incluyendo)
+// final.
+// Luego, escribe una función suma que tome un array de números y retorne
+// la suma de estos números. Ejecuta el programa de ejemplo y ve si realmente
+// retorna 55.
+// Como una misión extra, modifica tu función rango para tomar un tercer
+// argumento opcional que indique el valor de “paso” utilizado para cuando construyas
+// el array. Si no se da ningún paso, los elementos suben en incrementos
+// de uno, correspondiedo al comportamiento anterior. La llamada a la función
+// rango(1, 10, 2) deberia retornar [1, 3, 5, 7, 9]. Asegúrate de que también
+// funcione con valores de pasos negativos para que rango(5, 2, -1) produzca
+// [5, 4, 3, 2].
+
+const rango = (inicio, final, paso) => {
+    const resultado = [];
+
+    if (paso === 0) {
+        console.error("El paso no puede ser cero.");
+        return resultado;
+    }
+
+    const condicionAscendente = inicio <= final;
+    const incremento = (condicionAscendente) ? Math.abs(paso) : -Math.abs(paso);
+
+    for (let i = inicio; (condicionAscendente ? i <= final : i >= final); i += incremento) {
+        resultado.push(i);
+    }
+
+    return resultado;
+}
+
+const suma = (array = []) => {
+    let total = 0;
+    for (let numero of array) {
+        total += numero;
+    }
+    return total;
+}
+suma();
+
+let numeros = rango(1, 10);
+let resultadoSuma = suma(numeros);
+console.log(resultadoSuma);
+
+console.log(rango(1,10,2));
+console.log(rango(5,2,-1));
+
+// Revirtiendo un array
+// Los arrays tienen un método reverse que cambia al array invirtiendo el orden
+// en que aparecen sus elementos. Para este ejercicio, escribe dos funciones,
+// revertirArray y revertirArrayEnSuLugar. El primero, revertirArray, toma
+// un array como argumento y produce un nuevo array que tiene los mismos elementos
+// pero en el orden inverso. El segundo, revertirArrayEnSuLugar, hace lo
+// que hace el métodoreverse: modifica el array dado como argumento invirtiendo
+// sus elementos. Ninguno de los dos puede usar el método reverse estándar.
+// Pensando en las notas acerca de los efectos secundarios y las funciones puras
+// en el capítulo anterior, qué variante esperas que sea útil en más situaciones?
+// Cuál corre más rápido?
+
+const revertirArray = (array) => {
+    
+    return array.slice().reverse();
+}
+console.log(revertirArray([1,2,3,4,5]));
