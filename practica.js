@@ -1712,6 +1712,77 @@ console.log(rango(5,2,-1));
 
 const revertirArray = (array) => {
     
-    return array.slice().reverse();
+    let nuevoArray = "";
+    for (let i = array.length - 1; i >= 0; i--) {
+        nuevoArray += array[i];
+    }
+    return nuevoArray;
 }
-console.log(revertirArray([1,2,3,4,5]));
+
+const revertirArrayEnSuLugar = (array) => {
+    return revertirArray(array);
+}
+
+let arreglo = revertirArray([1,2,3,4,5]);
+let arregloInvertidoRevertido = revertirArrayEnSuLugar(arreglo);
+
+console.log(arreglo);
+
+console.log(arregloInvertidoRevertido);
+
+                                // Una lista
+// Los objetos, como conjuntos genéricos de valores, se pueden usar para construir
+// todo tipo de estructuras de datos. Una estructura de datos común es la lista
+// (no confundir con un array). Una lista es un conjunto anidado de objetos, con
+// el primer objeto conteniendo una referencia al segundo, el segundo al tercero,
+// y así sucesivamente.
+
+        // let lista = {
+        //  valor: 1,
+        //  resto: {
+        //      valor: 2,
+        //      resto: {
+        //          valor: 3,
+        //          resto: null
+        //      }
+        //  }
+        // };
+
+// Los objetos resultantes forman una cadena, como esta:
+
+// value: 1
+// rest: --> value: 2
+//           rest: --> value: 3
+//                     rest: null
+
+// Algo bueno de las listas es que pueden compartir partes de su estructura. Por
+// ejemplo, si creo dos nuevos valores {valor: 0, resto: lista} y {valor: -1,
+// resto: lista} (con lista refiriéndose a la vinculación definida anteriormente),
+// ambos son listas independientes, pero comparten la estructura que conforma
+// sus últimos tres elementos. La lista original también sigue siendo una lista
+// válida de tres elementos.
+// Escribe una función arrayALista que construya una estructura de lista como
+// el que se muestra arriba cuando se le da [1, 2, 3] como argumento. También
+// escribe una función listaAArray que produzca un array de una lista. Luego
+// agrega una función de utilidad preceder, que tome un elemento y una lista y
+// creé una nueva lista que agrega el elemento al frente de la lista de entrada, y
+// posicion, que toma una lista y un número y retorne el elemento en la posición
+// dada en la lista (con cero refiriéndose al primer elemento) o undefined cuando
+// no exista tal elemento.
+// Si aún no lo has hecho, también escribe una versión recursiva de posicion.
+
+
+                        // Comparación profunda
+// El operador == compara objetos por identidad. Pero a veces preferirias comparar
+// los valores de sus propiedades reales.
+// Escribe una función igualdadProfunda que toma dos valores y retorne true
+// solo si tienen el mismo valor o son objetos con las mismas propiedades, donde
+// los valores de las propiedades sean iguales cuando comparadas con una llamada
+// recursiva a igualdadProfunda.
+// Para saber si los valores deben ser comparados directamente (usa el operador
+// == para eso) o si deben tener sus propiedades comparadas, puedes usar el
+// operador typeof. Si produce "object" para ambos valores, deberías hacer una
+// comparación profunda. Pero tienes que tomar una excepción tonta en cuenta:
+// debido a un accidente histórico, typeof null también produce "object".
+// La función Object.keys será útil para cuando necesites revisar las propiedades
+// de los objetos para compararlos.
