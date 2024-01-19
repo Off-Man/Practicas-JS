@@ -1762,14 +1762,59 @@ console.log(arregloInvertidoRevertido);
 // sus últimos tres elementos. La lista original también sigue siendo una lista
 // válida de tres elementos.
 // Escribe una función arrayALista que construya una estructura de lista como
-// el que se muestra arriba cuando se le da [1, 2, 3] como argumento. También
-// escribe una función listaAArray que produzca un array de una lista. Luego
+// el que se muestra arriba cuando se le da [1, 2, 3] como argumento.
+//También
+// escribe una función listaAArray que produzca un array de una lista.
+//Luego
 // agrega una función de utilidad preceder, que tome un elemento y una lista y
-// creé una nueva lista que agrega el elemento al frente de la lista de entrada, y
-// posicion, que toma una lista y un número y retorne el elemento en la posición
+// creé una nueva lista que agrega el elemento al frente de la lista de entrada.
+//
+// y posicion, que toma una lista y un número y retorne el elemento en la posición
 // dada en la lista (con cero refiriéndose al primer elemento) o undefined cuando
 // no exista tal elemento.
+
 // Si aún no lo has hecho, también escribe una versión recursiva de posicion.
+
+function arrayALista(array) {
+    let lista = null;
+        for (let i = array.length - 1; i >= 0; i--) {
+        lista = { valor: array[i], resto: lista };
+    }
+    return lista;
+}
+
+function listaAArray(lista) {
+    let array = [];
+    while (lista !== null) {
+        array.push(lista.valor);
+        lista = lista.resto;
+}
+    return array;
+}
+
+function preceder(elemento, lista) {
+    return { valor: elemento, resto: lista };
+}
+
+function posicion(lista, n) {
+    if (n === 0) {
+        return lista.valor;
+    } else if (lista.resto === null || n < 0) {
+        return undefined;
+    } else {
+        return posicion(lista.resto, n - 1);
+    }
+}
+
+function posicionRecursiva(lista, n, currentIndex = 0) {
+    if (n === currentIndex) {
+        return lista.valor;
+    } else if (lista.resto === null || currentIndex > n) {
+        return undefined;
+    } else {
+        return posicionRecursiva(lista.resto, n, currentIndex + 1);
+    }
+}
 
 
                         // Comparación profunda
@@ -1786,3 +1831,45 @@ console.log(arregloInvertidoRevertido);
 // debido a un accidente histórico, typeof null también produce "object".
 // La función Object.keys será útil para cuando necesites revisar las propiedades
 // de los objetos para compararlos.
+
+function igualdadProfunda(obj1, obj2) {
+    // Verificar si ambos valores son objetos
+    if (typeof obj1 === 'object' && obj1 !== null &&
+        typeof obj2 === 'object' && obj2 !== null) {
+    
+      // Obtener las claves de ambos objetos
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+
+      // Verificar si el número de propiedades es el mismo
+    if (keys1.length !== keys2.length) {
+        return false;
+    }
+
+        // Comparar recursivamente las propiedades
+    for (let key of keys1) {
+        // Llamada recursiva para comparar las propiedades
+        if (!igualdadProfunda(obj1[key], obj2[key])) {
+            return false;
+        }
+    }
+
+      // Si todas las propiedades son iguales
+    return true;
+    } else {
+      // Comparación directa si no son objetos
+    return obj1 === obj2;
+    }
+}
+
+const objeto1 = { a: 1, b: { c: 2 } };
+const objeto2 = { a: 1, b: { c: 2 } };
+console.log(igualdadProfunda(objeto1, objeto2)); // true
+
+const array1 = [1, 2, { a: 3 }];
+const array2 = [1, 2, { a: 3 }];
+console.log(igualdadProfunda(array1, array2)); // true
+
+const valor1 = 5;
+const valor2 = '5';
+console.log(igualdadProfunda(valor1, valor2)); // false
