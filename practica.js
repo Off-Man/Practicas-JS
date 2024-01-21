@@ -1873,3 +1873,128 @@ console.log(igualdadProfunda(array1, array2)); // true
 const valor1 = 5;
 const valor2 = '5';
 console.log(igualdadProfunda(valor1, valor2)); // false
+
+                        // Aplanamiento
+// Use el método reduce en combinación con el método concat para “aplanar” un
+// array de arrays en un único array que tenga todos los elementos de los arrays
+// originales.
+
+const arrays = [[1, 2, 3], [4, 5], [6]];
+
+const arrayAplanado = arrays.reduce((acum, arrayActual) => {
+    return acum.concat(arrayActual);
+}, []);
+
+console.log(arrayAplanado);
+
+                            // Tu propio ciclo
+// Escriba una función de orden superior llamada ciclo que proporcione algo así
+// como una declaración de ciclo for. Esta toma un valor, una función de prueba,
+// una función de actualización y un cuerpo de función. En cada iteración, primero
+// ejecuta la función de prueba en el valor actual del ciclo y se detiene si esta
+// retorna falso. Luego llama al cuerpo de función, dándole el valor actual. Y
+// finalmente, llama a la función de actualización para crear un nuevo valor y
+// comienza desde el principio.
+// Cuando definas la función, puedes usar un ciclo regular para hacer los ciclos
+// reales.
+
+function ciclo (valorActual, prueba, actualizacion, cuerpo) {
+    while (prueba(valorActual)) {
+        cuerpo(valorActual);
+        valorActual = actualizacion(valorActual);
+    }
+}
+
+let contador = 0;
+
+ciclo(
+    contador,                            // valor inicial
+    (valor) => valor < 5,                // función de prueba
+    (valor) => valor + 1,                // función de actualización
+    (valor) => {
+    console.log(valor);                // cuerpo de la función
+    }
+);
+
+                            // Cada
+// De forma análoga al método some, los arrays también tienen un método every
+// (“cada”). Este retorna true cuando la función dada devuelve verdadero para
+// cada elemento en el array. En cierto modo, some es una versión del operador
+// || que actúa en arrays, y every es como el operador &&.
+// Implementa every como una función que tome un array y una función predicado
+// como parámetros. Escribe dos versiones, una usando un ciclo y una
+// usando el método some.
+
+function everyConCiclo (array, predicado) {
+    for(elem of array) {
+        if(!predicado(elem)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+const arreglo1 = [1, 2, 3, 4, 5];
+const esMenorQueDiez = (numero) => numero < 10;
+
+console.log(everyConCiclo(arreglo1, esMenorQueDiez));
+
+// usando el método some.
+
+function everyConSome(array, predicado) {
+    // La negación de some es equivalente a every
+    return !array.some((elemento) => !predicado(elemento));
+}
+
+const arreglo2 = [1, 2, 3, 4, 5];
+const esMenorQueDiez = (numero) => numero < 10;
+
+console.log(everyConSome(arreglo2, esMenorQueDiez));
+
+
+                    // Dirección de Escritura Dominante
+// Escriba una función que calcule la dirección de escritura dominante en un string
+// de texto. Recuerde que cada objeto de codigo tiene una propiedad direction
+// que puede ser "ltr" (de izquierda a derecha), "rtl" (de derecha a izquierda),
+// o "ttb" (arriba a abajo).
+// La dirección dominante es la dirección de la mayoría de los caracteres que
+// tienen un código asociado a ellos. Las funciones codigoCaracter y contarPor
+// definidas anteriormente en el capítulo probablemente seran útiles aquí.
+
+function codigoCaracter(codigo_caracter) {
+    for (let codigo of SCRIPTS) { //necesitas el archivo SCRIPTS del libro Eloquent JS.
+    if (codigo.ranges.some(([desde, hasta]) => {
+        return codigo_caracter >= desde && codigo_caracter < hasta;
+    })) {
+    return codigo;
+    }
+}
+    return null;
+    }
+
+function contarPor(elementos, nombreGrupo) {
+    let cuentas = [];
+    for (let elemento of elementos) {
+        let nombre = nombreGrupo(elemento);
+        let conocido = cuentas.findIndex(c => c.nombre == nombre);
+        if (conocido == -1) {
+            cuentas.push({nombre, cuenta: 1});
+    }   else {
+            cuentas[conocido].cuenta++;
+    }
+    }
+    return cuentas;
+}
+
+function direccionDominante(texto) {
+    let contado = contarPor(texto, char => {
+    let script = codigoCaracter(char.codePointAt(0));
+    return script ? script.direccion : "null";
+    }).filter(({nombre}) => nombre != "null");
+
+    if (contado.length == 0) return "ltr";
+
+    return contado.reduce((a, b) => a.count > b.count ? a : b).nombre;
+}
+
+console.log(direccionDominante("Hello!")); // → ltr
