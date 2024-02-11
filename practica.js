@@ -1998,3 +1998,4 @@ function direccionDominante(texto) {
 }
 
 console.log(direccionDominante("Hello!")); // → ltr
+
