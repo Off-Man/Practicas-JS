@@ -1,4 +1,4 @@
-    /* function cuadradoCallback(value, callback) {
+    function cuadradoCallback(value, callback) {
         setTimeout(() => {
             callback(value, value * value);
         }, 0 | Math.random() * 1000);
@@ -25,4 +25,4 @@
             });
             });
         });
-        }); */
+        });
